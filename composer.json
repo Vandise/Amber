@@ -1,0 +1,14 @@
+{
+    "name": "vandise/amber",
+    "description": "A dependency-injection framework consisting of Models, Operations, Views, and Events",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Benjamin J Anderson",
+            "email": "banderson@mashable.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
