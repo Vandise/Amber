@@ -1,0 +1,12 @@
+<phpunit bootstrap="framework.php" backupGlobals="false">
+  <php>
+     <const name="RUNNING_TESTS" value="true"/>
+  </php>
+  <testsuites>
+    
+    <testsuite name="event">
+      <file>event/test/generator_test.php</file>
+    </testsuite>
+    
+  </testsuites> 
+</phpunit>

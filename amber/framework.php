@@ -10,7 +10,11 @@
  * @since 0.1
  * @version v0.1
  */
- 
+
+ if (RUNNING_TESTS) {
+    define('AMBER_ROOT_PATH', dirname(dirname(__FILE__)));
+ }
+
  if (!defined('AMBER_ROOT_PATH')) {
     throw new Exception('Unable to load AMBER_ROOT_PATH');
  }
