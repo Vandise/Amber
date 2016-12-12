@@ -6,6 +6,8 @@
     
     <testsuite name="event">
       <file>event/test/generator_test.php</file>
+      <file>event/test/route_test.php</file>
+      <file>event/test/router_test.php</file>
     </testsuite>
     
   </testsuites> 
