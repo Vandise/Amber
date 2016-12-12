@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+require_once './config/constants.php';
+
+if (defined('AMBER_ROOT_PATH')) {
+  require_once AMBER_ROOT_PATH.'/amber/framework.php';
+} else {
+  throw new Exception('Unable to load the Amber framework: Path requested - '.AMBER_ROOT_PATH);
+}
+
+echo "Amber Framework: Version 0.x\n";
+
+exit(0);
