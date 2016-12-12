@@ -33,7 +33,6 @@ function load($class) {
         }, $fragments, array_keys($fragments)
       )
     ).'.php';
-    echo "$file\n";
     if(file_exists($file))
     {
       require_once $file;
