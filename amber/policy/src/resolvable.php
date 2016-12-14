@@ -4,20 +4,29 @@ namespace Amber\Policy;
 
 abstract class Resolvable {
 
-  protected $resolved = null;
-  protected $rejected = null;
+  protected $resolve = null;
+  protected $reject = null;
+  protected $resolved = false;
 
-  public function __construct(string $resolved, string $rejected) {
-    $this->resolved = $resolved;
-    $this->rejected = $rejected;
+  public function __construct(string $resolve, string $reject) {
+    $this->resolve = $resolve;
+    $this->reject = $reject;
   }
 
-  public function getResolveService() : string {
+  public function setResolvedStatus(bool $status) : void {
+    $this->resolved = $status;
+  }
+
+  public function getResolvedStatus() : bool {
     return $this->resolved;
   }
 
-  public function getRejectedResponder() : string {
-    return $this->rejected;    
+  public function getResolveService() : string {
+    return $this->resolve;
+  }
+
+  public function getRejectResponder() : string {
+    return $this->reject;    
   }
 
 }
