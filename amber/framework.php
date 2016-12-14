@@ -11,7 +11,7 @@
  * @version v0.1
  */
 
- if (RUNNING_TESTS) {
+ if (defined('RUNNING_TESTS') && RUNNING_TESTS) {
     define('AMBER_ROOT_PATH', dirname(dirname(__FILE__)));
  }
 
