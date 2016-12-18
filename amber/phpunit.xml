@@ -9,6 +9,10 @@
       <file>event/test/route_test.php</file>
       <file>event/test/router_test.php</file>
     </testsuite>
+
+    <testsuite name="policy">
+      <file>policy/test/resolvable_test.php</file>
+    </testsuite>
     
   </testsuites> 
 </phpunit>
