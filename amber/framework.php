@@ -18,6 +18,8 @@
  if (!defined('AMBER_ROOT_PATH')) {
     throw new Exception('Unable to load AMBER_ROOT_PATH');
  }
+ 
+ require_once APP_CONFIG_PATH.'/autoload.php';
 
 function load($class) {
   $class = strtolower(preg_replace('/\B([A-Z])/', '_$1', $class));

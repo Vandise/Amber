@@ -3,16 +3,16 @@
 namespace Amber\Injection\Resolve;
 
 /**
- * Policy Injection Resolver
+ * Resolver Injection
  *
- * Resolves policies by injecting objects in the "resolve" method
+ * Injects global configurations and server settings into a resolver object
  *
  * @author Benjamin J. Anderson <andeb2804@gmail.com>
  * @package Amber\Injection\Resolve
  * @since Nov 4th, 2015
  * @version v0.1
  */
-class Policy extends \Amber\Injection\Injectable {
+class Resolver extends \Amber\Injection\Injectable {
 
   public function __construct($instance) {
     $this->instance = $instance;
@@ -40,30 +40,7 @@ class Policy extends \Amber\Injection\Injectable {
   }
 
   private function resolveDepenency($name) {
-    $class = null;
-    $name = $this->className($name);
-    if (array_key_exists($name, $this->instance->getResolvePaths())) {
-      $class = $this->instance->getResolvePaths()[$name].$name;
-    } else {
-      $class = '\Resolvers\\'.$name;
-    }
-
-    // application resolvers
-    if (!class_exists($class)) {
-      // custom objects
-      if (!class_exists($name)) {
-        throw new \Exception("Resolver $class was not found");
-      } else {
-        throw new \Exception("Custom resolver objects are not yet implemented");
-        //$class = new $name();
-        //$class = (new \Amber\Injection\Factory\InjectionFactory($class))->newInstance();      
-      }
-    } else {
-      $class = new $class();
-      $class = (new \Amber\Injection\Factory\InjectionFactory($class, 'Resolver'))->newInstance(); 
-    }
-
-    return $class->inject([]);
+    return 'server settings, configs, etc';
   }
 
 }

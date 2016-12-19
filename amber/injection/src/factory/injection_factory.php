@@ -15,16 +15,22 @@ namespace Amber\Injection\Factory;
  class InjectionFactory {
 
   private $instance;
+  private $resolverType;
   private $resolveNamespace;
 
-  public function __construct($instance, $resolveNamespace = '\Amber\Injection\Resolve\\') {
+  public function __construct($instance, $resolverType = null, $resolveNamespace = '\Amber\Injection\Resolve\\') {
     $this->instance = $instance;   
+    $this->resolverType = $resolverType;
     $this->resolveNamespace = $resolveNamespace;
   }
 
   public function newInstance() : \Amber\Injection\iInjectable {
-    $fragments = preg_split('/(?=[A-Z])/', get_class($this->instance));
-    $resolver = $this->resolveNamespace.end($fragments); unset($fragments);
+    if ($this->resolverType == null) {
+      $fragments = preg_split('/(?=[A-Z])/', get_class($this->instance));
+      $resolver = $this->resolveNamespace.end($fragments); unset($fragments);
+    } else {
+      $resolver = $this->resolveNamespace.$this->resolverType;
+    }
     if (!class_exists($resolver)) {
       throw new \Amber\Injection\Exception\NoInjectionResolver(
         "Resolver for injection type '$resolver' was not found");

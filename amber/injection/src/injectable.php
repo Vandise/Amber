@@ -16,4 +16,13 @@ abstract class Injectable implements \Amber\Injection\iInjectable {
   protected $instance;
   protected $method;
   protected $parameters = array();
+
+  protected function className($name) : string {
+    $class = '';
+    $fragments = explode('_', $name);
+    foreach($fragments as $f) {
+      $class .= ucfirst($f);
+    }
+    return $class;
+  }
 }
