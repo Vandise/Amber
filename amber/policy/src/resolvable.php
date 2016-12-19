@@ -16,11 +16,13 @@ abstract class Resolvable {
 
   protected $resolve = null;
   protected $reject = null;
+  protected $resolvePaths;
   protected $resolved = false;
 
-  public function __construct(string $resolve, string $reject) {
+  public function __construct(string $resolve, string $reject, $resolvePaths = array()) {
     $this->resolve = $resolve;
     $this->reject = $reject;
+    $this->resolvePaths = $resolvePaths;
     if(!(method_exists($this, 'resolve'))) {
       throw new \Amber\Policy\Exception\NoResolveMethod('Class '.get_class($this).' must implement a "resolve" method.');
     }
@@ -42,4 +44,7 @@ abstract class Resolvable {
     return $this->reject;    
   }
 
+  public function getResolvePaths() : array {
+    return $this->resolvePaths;
+  }
 }

@@ -25,14 +25,29 @@ class Policy extends \Amber\Injection\Injectable {
 
   public function inject(array $overrides) {
     $parameters = array();
+    foreach($this->parameters as $paramName) {
+      if (array_key_exists($paramName, $overrides)) {
+        array_push($parameters, $overrides[$paramName]);
+      } else {
+        array_push($parameters, $this->resolveDepenency($paramName));
+      }
+    }
+    return call_user_func_array(array($this->instance, $this->method), $parameters);
   }
 
   public function getInstance() {
-    
+    return $this->instance;
   }
 
   private function resolveDepenency($name) {
-    
+    $class = $name;
+    if (array_key_exists($name, $this->instance->getResolvePaths())) {
+      $class = $this->instance->getResolvePaths()[$name].$name;
+    } else {
+      $class = '\Application\Resolvers\\'.$name;
+    }
+    // TODO: resolver injection resolver
+    return $class;
   }
 
 }
