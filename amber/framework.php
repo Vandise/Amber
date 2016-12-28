@@ -28,7 +28,7 @@ function load($class) {
     implode( '', 
       array_map( 
         function($fragment, $i) use ($class){
-          if ($i == 2)
+          if ($i == 2 && !strstr($class, 'application'))
           {
             return "/src/$fragment"; 
           }

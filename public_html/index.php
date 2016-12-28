@@ -25,6 +25,27 @@
 
     if ($resinite->route)
     {
+
+      $request_policies = array();
+      foreach($resinite->route->params['policies'] as $policy => $actions)
+      {
+        $NAMESPACE = "\\Application\\Policies\\".$resinite->route->params['namespace'];
+        $class = $NAMESPACE.implode('', array_map(function($fragment){
+          return ucfirst($fragment);
+        }, explode('_', $policy))).'Policy';
+        $request_policies[] = new $class($actions[0], $actions[1]);
+      }
+
+      foreach($request_policies as $index => $policy)
+      {
+        $injector = (new \Amber\Injection\Factory\InjectionFactory($policy))->newInstance();
+        $status = $injector->inject([]);
+        $request_policies[$index] = $injector->getInstance();
+        $request_policies[$index]->setResolvedStatus($status);
+      }
+
+      $resinite->request_policies = $request_policies;
+
       echo "<pre>";
       var_dump($resinite);     
     }
