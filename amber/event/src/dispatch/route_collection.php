@@ -172,7 +172,7 @@ class RouteCollection extends \Amber\Event\Parse\AbstractSpec implements ArrayAc
 				
 		$this->addValues(array(
 			'directory'=>$name,
-			'controller'=>$name
+			'service'=>$name
 		));
 		
 		$this->addValues($opts);

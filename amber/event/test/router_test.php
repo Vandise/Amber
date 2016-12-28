@@ -291,7 +291,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 		 $routes = $this->router->getRoutes();
 		 
 		 // test that the namespace sets the controller properly
-		 $this->assertEquals($routes['home']->values['controller'],'index');
+		 $this->assertEquals($routes['home']->values['service'],'index');
 		 
 		 // validate that we can assign a default as well in the third param
 		  $this->assertEquals($routes['home']->values['format'],'html');
@@ -305,7 +305,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 		 
 		 // test namespace params
 		 $this->assertEquals($routes['admin.index']->values['directory'],'admin');
-		 $this->assertEquals($routes['admin.index']->values['controller'],'admin');
+		 $this->assertEquals($routes['admin.index']->values['service'],'admin');
 
 
     }
