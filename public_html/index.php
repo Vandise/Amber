@@ -27,13 +27,13 @@
     {
 
       $request_policies = array();
-      foreach($resinite->route->params['policies'] as $policy => $actions)
+      foreach($resinite->route->params['policies'] as $policy => $reject_responder)
       {
         $NAMESPACE = "\\Application\\Policies\\".$resinite->route->params['namespace'];
         $class = $NAMESPACE.implode('', array_map(function($fragment){
           return ucfirst($fragment);
         }, explode('_', $policy))).'Policy';
-        $request_policies[] = new $class($actions[0], $actions[1]);
+        $request_policies[] = new $class($reject_responder);
       }
 
       foreach($request_policies as $index => $policy)

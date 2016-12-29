@@ -4,7 +4,7 @@
 
     $router->addValues(array(
       'policies' => [
-          'requires_login' => ['login_success', 'unauthorized']
+          'requires_login' => 'unauthorized'
         ]
     ));
 

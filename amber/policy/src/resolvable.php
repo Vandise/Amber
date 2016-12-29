@@ -14,13 +14,11 @@ namespace Amber\Policy;
  */
 abstract class Resolvable {
 
-  protected $resolve = null;
   protected $reject = null;
   protected $resolvePaths;
   protected $resolved = false;
 
-  public function __construct(string $resolve, string $reject, $resolvePaths = array()) {
-    $this->resolve = $resolve;
+  public function __construct(string $reject, $resolvePaths = array()) {
     $this->reject = $reject;
     $this->resolvePaths = $resolvePaths;
     if(!(method_exists($this, 'resolve'))) {
@@ -34,10 +32,6 @@ abstract class Resolvable {
 
   public function getResolvedStatus() : bool {
     return $this->resolved;
-  }
-
-  public function getResolveService() : string {
-    return $this->resolve;
   }
 
   public function getRejectResponder() : string {
