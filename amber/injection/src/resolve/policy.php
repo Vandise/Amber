@@ -45,7 +45,7 @@ class Policy extends \Amber\Injection\Injectable {
     if (array_key_exists($name, $this->instance->getResolvePaths())) {
       $class = $this->instance->getResolvePaths()[$name].$name;
     } else {
-      $class = '\Resolvers\\'.$name;
+      $class = '\Application\Resolvers\\'.$name;
     }
 
     // application resolvers
