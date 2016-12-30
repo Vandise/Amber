@@ -46,8 +46,31 @@
 
       $resinite->request_policies = $request_policies;
 
-      echo "<pre>";
-      var_dump($resinite);     
+      //echo "<pre>";
+      //var_dump($resinite);
+
+      $reject_responder_name = false;
+      foreach($resinite->request_policies as $policy)
+      {
+        if (!$policy->getResolvedStatus())
+        {
+          $reject_responder_name = $policy->getRejectResponder();
+          break;
+        }
+      }
+      if ($reject_responder_name)
+      {
+        $reject_responder_name = '\Application\Responders\\'.ucfirst($reject_responder_name).'Responder';
+        $responder = new $reject_responder_name();
+        $method_name = 'respond_to_'.($resinite->route->params['format'] ? $resinite->route->params['format'] : 'html');
+        // TODO: construct injector
+        $parameters = array($resinite->request_policies, null, null);
+        call_user_func_array(array($responder, $method_name), $parameters);
+      }
+      else
+      {
+        echo "Execute service \n";
+      }
     }
     else
     {
