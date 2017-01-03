@@ -50,9 +50,6 @@
 
       $resinite->request_policies = $request_policies;
 
-      //echo "<pre>";
-      //var_dump($resinite);
-
       $reject_responder_name = false;
       foreach($resinite->request_policies as $policy)
       {
@@ -67,8 +64,17 @@
         $reject_responder_name = '\Application\Responders\\'.ucfirst($reject_responder_name).'Responder';
         $responder = new $reject_responder_name();
         $method_name = 'respond_to_'.($resinite->route->params['format'] ? $resinite->route->params['format'] : 'html');
-        // TODO: construct injector
-        $parameters = array($resinite->request_policies, null, null);
+
+        $parameters = array(
+          'policy_results' => $resinite->request_policies,
+          'service' => null,
+          'renderer' => null, /* resinite->renderer */
+          );
+        $injector = (new \Amber\Injection\Factory\InjectionFactory($responder))->newInstance();
+        $response = $injector
+                      ->setInjectionMethod($method_name)
+                      ->inject($parameters);
+        
         call_user_func_array(array($responder, $method_name), $parameters);
       }
       else

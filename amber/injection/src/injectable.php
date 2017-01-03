@@ -25,4 +25,10 @@ abstract class Injectable implements \Amber\Injection\iInjectable {
     }
     return $class;
   }
+
+  public function setInjectionMethod($method) {
+    $this->method = $method;
+    return $this;
+  }
+
 }
