@@ -40,7 +40,20 @@ class Resolver extends \Amber\Injection\Injectable {
   }
 
   private function resolveDepenency($name) {
-    return 'server settings, configs, etc';
+    $resinite = \Amber\Framework\Resinite::getInstance();
+    if(array_key_exists($name, $resinite->resolvers))
+    {
+      throw new \Exception('Custom user-defined resolvers are unsupported in Resolver objects');
+    }
+    if(array_key_exists($name, $resinite->implementations))
+    {
+      throw new \Exception('Custom user-defined implementations are unsupported in Resolver objects');
+    }
+    if(array_key_exists($name, $resinite->values))
+    {
+      return $resinite->values[$name];
+    }
+    throw new \Exception("No defined resolver, implementation, or custom value for object ".get_class($this->instance));
   }
 
 }
