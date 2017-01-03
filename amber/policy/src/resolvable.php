@@ -17,6 +17,7 @@ abstract class Resolvable {
   protected $reject = null;
   protected $resolvePaths;
   protected $resolved = false;
+  protected $injectedParameters = array();
 
   public function __construct(string $reject, $resolvePaths = array()) {
     $this->reject = $reject;
@@ -24,6 +25,14 @@ abstract class Resolvable {
     if(!(method_exists($this, 'resolve'))) {
       throw new \Amber\Policy\Exception\NoResolveMethod('Class '.get_class($this).' must implement a "resolve" method.');
     }
+  }
+
+  public function getInjectedParameters() : array {
+    return $this->injectedParameters;
+  }
+
+  public function addParameter($name, $instance) : void {
+    $this->injectedParameters[$name] = $instance;
   }
 
   public function setResolvedStatus(bool $status) : void {

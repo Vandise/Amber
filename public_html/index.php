@@ -79,6 +79,28 @@
       }
       else
       {
+        // TODO: anything beginning with \ is a custom path
+        echo "<pre>";
+
+        $NAMESPACE = "\\Application\\Services\\".$resinite->route->params['namespace'];
+        $class = $NAMESPACE.implode('', array_map(function($fragment){
+          return ucfirst($fragment);
+        }, explode('_',
+          ( $resinite->route->params['service'] ? $resinite->route->params['service'] : $resinite->route->params['action'])
+        ))).'Service';
+
+        // TODO: construct base service with parameters for $this->something instead of injection
+        $parameters = array(
+          'params' => $resinite->route->params,
+        );
+        foreach($resinite->request_policies as $policy)
+        {
+          $parameters = array_merge($parameters, $policy->getInjectedParameters());
+        }
+        $service = new $class();
+
+        call_user_func_array(array($service, 'execute'), $parameters);
+        
         echo "Execute service \n";
       }
     }

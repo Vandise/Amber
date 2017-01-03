@@ -17,7 +17,7 @@ class Policy extends \Amber\Injection\Injectable {
   public function __construct($instance) {
     $this->instance = $instance;
     $this->method = 'resolve';
-    $params = (new \ReflectionMethod($instance, 'resolve'))->getParameters();
+    $params = (new \ReflectionMethod($instance, $this->method))->getParameters();
     foreach($params as $param) {
       array_push($this->parameters, $param->getName());
     }
@@ -60,10 +60,12 @@ class Policy extends \Amber\Injection\Injectable {
       }
     } else {
       $class = new $class();
-      $class = (new \Amber\Injection\Factory\InjectionFactory($class, 'Resolver'))->newInstance(); 
+      $class = (new \Amber\Injection\Factory\InjectionFactory($class, 'Resolver'))->newInstance();
     }
 
-    return $class->inject([]);
+    $response = $class->inject([]);
+    $this->instance->addParameter(strtolower(preg_replace('/\B([A-Z])/', '_$1', $name)), $response);
+    return $response;
   }
 
 }
