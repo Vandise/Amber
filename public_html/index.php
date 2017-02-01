@@ -33,7 +33,8 @@
       $request_policies = array();
       foreach($resinite->route->params['policies'] as $policy => $reject_responder)
       {
-        $NAMESPACE = "\\Application\\Policies\\".$resinite->route->params['namespace'];
+        $route_namespace = $resinite->route->params['namespace'];
+        $NAMESPACE = "\\Application\\Policies\\".($route_namespace ? ucfirst($route_namespace).'\\' : '');
         $class = $NAMESPACE.implode('', array_map(function($fragment){
           return ucfirst($fragment);
         }, explode('_', $policy))).'Policy';
@@ -82,7 +83,8 @@
         // TODO: anything beginning with \ is a custom path
         echo "<pre>";
 
-        $NAMESPACE = "\\Application\\Services\\".$resinite->route->params['namespace'];
+        $route_namespace = $resinite->route->params['namespace'];
+        $NAMESPACE = "\\Application\\Services\\".($route_namespace ? ucfirst($route_namespace).'\\' : '');
         $class = $NAMESPACE.implode('', array_map(function($fragment){
           return ucfirst($fragment);
         }, explode('_',

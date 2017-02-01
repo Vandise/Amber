@@ -10,7 +10,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "corneltek/getoptionkit": "^2.5"
+    },
     "require-dev": {
         "phpunit/phpunit": "5.5.*"
     }
