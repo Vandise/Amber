@@ -65,5 +65,18 @@ class CurrentUser {
 ```
 
 ## Services
+Services handle the user action. This is essentially a bare-bones `Controller` in the MVC pattern, with an `execute` method. The `params` parameter contains the URL parameters specified in the `events` (note this is subject to change to being a service property). You can also require any resolved policy results, in this case, the result from the `CurrentUser` resolver.
+
+```php
+namespace Application\Services;
+
+class IndexService
+{
+  public function execute($current_user, $params) : void
+  {
+    // do something with the current user and params
+  }
+}
+```
 
 ## Responders
